@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy7lfk2g0qhol"]
+
+[ext_resource type="PackedScene" uid="uid://b26gkpsm66fhm" path="res://Jugador.tscn" id="1_8g3sk"]
+[ext_resource type="PackedScene" uid="uid://blmrnxtywgdad" path="res://Plataforma.tscn" id="1_xigpd"]
+[ext_resource type="PackedScene" uid="uid://d1d7rw3p26o7t" path="res://PlataformaEstática.tscn" id="3_c4cy6"]
+
+[node name="Nivel" type="Node3D"]
+
+[node name="Jugador" parent="." instance=ExtResource("1_8g3sk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00247, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.155986, 0.987759, 0, -0.987759, -0.155986, 0, 17.0258, 0)
+light_energy = 0.48
+shadow_enabled = true
+
+[node name="Cubos" type="Node" parent="."]
+
+[node name="StaticBody3D" parent="Cubos" instance=ExtResource("1_xigpd")]
+transform = Transform3D(1, 0, 0, 0, 0.669273, 0.743016, 0, -0.743016, 0.669273, 0, 3.45042, 0)
+
+[node name="StaticBody3D2" parent="Cubos" instance=ExtResource("1_xigpd")]
+transform = Transform3D(1, 0, 0, 0, 0.669273, 0.743016, 0, -0.743016, 0.669273, -18.097, 3.45042, 15.8553)
+
+[node name="StaticBody3D3" parent="Cubos" instance=ExtResource("1_xigpd")]
+transform = Transform3D(1, 0, 0, 0, 0.669273, 0.743016, 0, -0.743016, 0.669273, 14.0336, 3.45042, -14.2627)
+
+[node name="StaticBody3D4" parent="Cubos" instance=ExtResource("1_xigpd")]
+transform = Transform3D(1, 0, 0, 0, 0.669273, 0.743016, 0, -0.743016, 0.669273, 12.7527, 3.45042, 11.9516)
+
+[node name="StaticBody3D5" parent="Cubos" instance=ExtResource("1_xigpd")]
+transform = Transform3D(1, 0, 0, 0, 0.669273, 0.743016, 0, -0.743016, 0.669273, -12.1632, 3.45042, -14.4083)
+
+[node name="StaticBody3D6" parent="Cubos" instance=ExtResource("1_xigpd")]
+transform = Transform3D(1, 0, 0, 0, 0.00671941, 0.999977, 0, -0.999977, 0.00671941, 0, 0.956725, 6.59047)
+
+[node name="StaticBody3D7" parent="Cubos" instance=ExtResource("1_xigpd")]
+transform = Transform3D(1, 0, 0, 0, 0.00671941, 0.999977, 0, -0.999977, 0.00671941, 3.61412, 0.956725, 6.59047)
+
+[node name="PlataformaEstática" parent="." instance=ExtResource("3_c4cy6")]
+transform = Transform3D(50, 0, 0, 0, 0.1, 0, 0, 0, 50, 0, 0, 0)

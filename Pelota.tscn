@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://3kakuo1t52tf"]
+
+[ext_resource type="Script" uid="uid://x17vok3g000w" path="res://Scripts/pelota.gd" id="1_scuwd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_scuwd"]
+bounce = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a73aj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_scuwd"]
+albedo_color = Color(0.31185, 0.31185, 0.31185, 1)
+metallic = 0.35
+metallic_specular = 0.74
+
+[sub_resource type="SphereMesh" id="SphereMesh_scuwd"]
+material = SubResource("StandardMaterial3D_scuwd")
+
+[node name="Pelota" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_scuwd")
+max_contacts_reported = 1
+script = ExtResource("1_scuwd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_a73aj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_scuwd")

@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://n6800osndepx"]
+
+[ext_resource type="PackedScene" uid="uid://cai8my4dwvcjf" path="res://Jugador.tscn" id="1_8g3sk"]
+[ext_resource type="PackedScene" uid="uid://c0fodfhg4ub6p" path="res://Suelo.tscn" id="3_c4cy6"]
+[ext_resource type="PackedScene" uid="uid://3kakuo1t52tf" path="res://Pelota.tscn" id="4_0b6j0"]
+[ext_resource type="PackedScene" uid="uid://c23g7bcggsxts" path="res://Arco.tscn" id="4_spw24"]
+[ext_resource type="PackedScene" uid="uid://bd5kyqscq67ue" path="res://Bot.tscn" id="5_spw24"]
+
+[sub_resource type="GDScript" id="GDScript_spw24"]
+script/source = "extends Node3D
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0b6j0"]
+sky_top_color = Color(0.630833, 0.445525, 0.158294, 1)
+sky_horizon_color = Color(0.738634, 0.684557, 0.60375, 1)
+ground_horizon_color = Color(0.738634, 0.684557, 0.60375, 1)
+energy_multiplier = 0.5
+
+[sub_resource type="Sky" id="Sky_spw24"]
+sky_material = SubResource("ProceduralSkyMaterial_0b6j0")
+
+[sub_resource type="Environment" id="Environment_bxp70"]
+background_mode = 2
+sky = SubResource("Sky_spw24")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Nivel" type="Node3D"]
+script = SubResource("GDScript_spw24")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bxp70")
+
+[node name="Jugador" parent="." node_paths=PackedStringArray("pelota") instance=ExtResource("1_8g3sk")]
+transform = Transform3D(0.992813, 0, 0, 0, 0.992813, 0, 0, 0, 0.992813, 0, 0.981398, 0)
+pelota = NodePath("../Pelota")
+
+[node name="Pelota" parent="." instance=ExtResource("4_0b6j0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.02974, -15.3189)
+contact_monitor = true
+max_contacts_reported = 5
+
+[node name="CollisionShape3D" parent="." instance=ExtResource("3_c4cy6")]
+transform = Transform3D(8.51905, 0, 0, 0, 1, 0, 0, 0, 46.6725, -0.118333, -0.540185, -14.3944)
+
+[node name="StaticBody3D" parent="." instance=ExtResource("4_spw24")]
+transform = Transform3D(4.4044, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.2, 1, 8.08003)
+
+[node name="StaticBody3D2" parent="." instance=ExtResource("4_spw24")]
+transform = Transform3D(4.4044, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.2, 1, -37.8333)
+
+[node name="Bot" parent="." node_paths=PackedStringArray("pelota", "arco_enemigo") instance=ExtResource("5_spw24")]
+transform = Transform3D(0.0274157, 0, -0.999624, 0, 1, 0, 0.999624, 0, 0.0274157, 0, 1, -33)
+pelota = NodePath("../Pelota")
+arco_enemigo = NodePath("../StaticBody3D")
+
+[node name="CollisionShape3D2" parent="." instance=ExtResource("3_c4cy6")]
+transform = Transform3D(-5.15726e-07, -1, 0, 11.7985, -4.37114e-08, 0, 0, 0, 46.6725, -4.86473, 3.98952, -14.3944)
+
+[node name="CollisionShape3D3" parent="." instance=ExtResource("3_c4cy6")]
+transform = Transform3D(-5.15726e-07, -1, 0, 11.7985, -4.37114e-08, 0, 0, 0, 46.6725, 4.5967, 3.98952, -14.3944)
+
+[node name="CollisionShape3D4" parent="." instance=ExtResource("3_c4cy6")]
+transform = Transform3D(2.39089e-14, 4.37114e-08, 10.0357, 12.5133, -4.37114e-08, 0, 5.46972e-07, 1, -4.38673e-07, -0.0515637, 3.68069, -38.2204)
+
+[node name="CollisionShape3D5" parent="." instance=ExtResource("3_c4cy6")]
+transform = Transform3D(2.39089e-14, 4.37114e-08, 10.0357, 12.5133, -4.37114e-08, 0, 5.46972e-07, 1, -4.38673e-07, -0.0515637, 3.68069, 9.33037)
+
+[node name="CollisionShape3D6" parent="." instance=ExtResource("3_c4cy6")]
+transform = Transform3D(8.51905, 0, 0, 0, 1, 0, 0, 0, 46.6725, -0.118333, 9.49682, -14.3944)

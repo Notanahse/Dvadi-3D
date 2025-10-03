@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://c23g7bcggsxts"]
+
+[ext_resource type="Script" uid="uid://qyxbk5wxv0s1" path="res://area_3d.gd" id="1_wabbx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kv80f"]
+size = Vector3(0.0419922, 1, 0.0643311)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kv80f"]
+albedo_color = Color(2.40654e-08, 0.438369, 0.106777, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wabbx"]
+material = SubResource("StandardMaterial3D_kv80f")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s5r6x"]
+size = Vector3(0.709503, 0.988403, 0.0522461)
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.00252, 0, 0, 0, 1.00252, 0, 0, 0, 1.00252, -0.479004, 0, 0.469012)
+shape = SubResource("BoxShape3D_kv80f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.0396515, 0, 0, 0, 1, 0, 0, 0, -0.0572957, 0, 0, 0)
+mesh = SubResource("BoxMesh_wabbx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.00252, 0, 0, 0, 1.00252, 0, 0, 0, 1.00252, 1.406, 0, 0.469012)
+shape = SubResource("BoxShape3D_kv80f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D2"]
+transform = Transform3D(0.0396515, 0, 0, 0, 1, 0, 0, 0, -0.0572957, 0, 0, 0)
+mesh = SubResource("BoxMesh_wabbx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.38215e-08, -1.00252, 0, 1.00252, -4.38215e-08, 0, 0, 0, 1.00252, 0.307945, 0.507745, 0.469012)
+shape = SubResource("BoxShape3D_kv80f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D3"]
+transform = Transform3D(0.0403415, 4.26326e-14, 0, -2.44249e-15, 1.93109, 0, 0, 0, -0.0582928, 0, -0.158272, 0)
+mesh = SubResource("BoxMesh_wabbx")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(2.59871, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_wabbx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178574, -0.00579834, 0.473877)
+shape = SubResource("BoxShape3D_s5r6x")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
