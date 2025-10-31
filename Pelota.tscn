@@ -1,22 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://3kakuo1t52tf"]
+[gd_scene load_steps=7 format=3 uid="uid://3kakuo1t52tf"]
 
 [ext_resource type="Script" uid="uid://x17vok3g000w" path="res://Scripts/pelota.gd" id="1_scuwd"]
+[ext_resource type="Texture2D" uid="uid://cb0cixq6r68li" path="res://Ad4aFr21m_720x0__1.jpg" id="2_85bnq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_scuwd"]
 bounce = 0.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_a73aj"]
+radius = 0.251577
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_scuwd"]
-albedo_color = Color(0.31185, 0.31185, 0.31185, 1)
-metallic = 0.35
-metallic_specular = 0.74
+albedo_texture = ExtResource("2_85bnq")
+albedo_texture_force_srgb = true
+metallic = 0.73
+metallic_specular = 1.0
+roughness = 0.63
 
 [sub_resource type="SphereMesh" id="SphereMesh_scuwd"]
 material = SubResource("StandardMaterial3D_scuwd")
 
 [node name="Pelota" type="RigidBody3D"]
+mass = 1.375
 physics_material_override = SubResource("PhysicsMaterial_scuwd")
+gravity_scale = 0.8
 max_contacts_reported = 1
 script = ExtResource("1_scuwd")
 

@@ -1,18 +1,31 @@
-[gd_scene load_steps=10 format=3 uid="uid://n6800osndepx"]
+[gd_scene load_steps=16 format=3 uid="uid://n6800osndepx"]
 
 [ext_resource type="PackedScene" uid="uid://cai8my4dwvcjf" path="res://Jugador.tscn" id="1_8g3sk"]
 [ext_resource type="PackedScene" uid="uid://c0fodfhg4ub6p" path="res://Suelo.tscn" id="3_c4cy6"]
 [ext_resource type="PackedScene" uid="uid://3kakuo1t52tf" path="res://Pelota.tscn" id="4_0b6j0"]
 [ext_resource type="PackedScene" uid="uid://c23g7bcggsxts" path="res://Arco.tscn" id="4_spw24"]
 [ext_resource type="PackedScene" uid="uid://bd5kyqscq67ue" path="res://Bot.tscn" id="5_spw24"]
+[ext_resource type="PackedScene" uid="uid://dexgcu6vmqq1a" path="res://source/Source/Saha.fbx" id="6_bxp70"]
+[ext_resource type="Texture2D" uid="uid://bgfkeq38pep4o" path="res://ffffff.jpg" id="7_2027d"]
+[ext_resource type="PackedScene" uid="uid://bboxamrs10kjv" path="res://Arco2.tscn" id="8_mhcqa"]
 
 [sub_resource type="GDScript" id="GDScript_spw24"]
 script/source = "extends Node3D
+@onready var areaA= $StaticBody3D/Area3D
+@onready var areaB= $StaticBody3D2/Area3D
+@onready var label1=$CanvasLayer/Label
+@onready var label2=$CanvasLayer/Label2
+
+func _physics_process(delta):
+	var golesA = areaA.getGoles()
+	var golesB = areaB.getGoles()
+	label1.text = str(golesA)
+	label2.text = str(golesB)
 "
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0b6j0"]
-sky_top_color = Color(0.630833, 0.445525, 0.158294, 1)
-sky_horizon_color = Color(0.738634, 0.684557, 0.60375, 1)
+sky_top_color = Color(0.184314, 0.207843, 0.752941, 1)
+sky_horizon_color = Color(1, 0.470588, 0.588235, 1)
 ground_horizon_color = Color(0.738634, 0.684557, 0.60375, 1)
 energy_multiplier = 0.5
 
@@ -24,6 +37,14 @@ background_mode = 2
 sky = SubResource("Sky_spw24")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhcqa"]
+albedo_texture = ExtResource("7_2027d")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ewed5"]
+material = SubResource("StandardMaterial3D_mhcqa")
+
+[sub_resource type="FontVariation" id="FontVariation_mhcqa"]
 
 [node name="Nivel" type="Node3D"]
 script = SubResource("GDScript_spw24")
@@ -41,30 +62,63 @@ contact_monitor = true
 max_contacts_reported = 5
 
 [node name="CollisionShape3D" parent="." instance=ExtResource("3_c4cy6")]
-transform = Transform3D(8.51905, 0, 0, 0, 1, 0, 0, 0, 46.6725, -0.118333, -0.540185, -14.3944)
+transform = Transform3D(54.1927, 0, 0, 0, 1, 0, 0, 0, 66.7592, -0.146134, -0.0987148, -11.0932)
 
 [node name="StaticBody3D" parent="." instance=ExtResource("4_spw24")]
-transform = Transform3D(4.4044, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.2, 1, 8.08003)
+transform = Transform3D(3.41708, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.8579, 1.17637, 10.2937)
 
-[node name="StaticBody3D2" parent="." instance=ExtResource("4_spw24")]
-transform = Transform3D(4.4044, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.2, 1, -37.8333)
+[node name="Area3D" parent="StaticBody3D" index="3"]
+equipo = "Casa"
+
+[node name="StaticBody3D3" parent="." instance=ExtResource("4_spw24")]
+transform = Transform3D(3.41708, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.8579, 1.17637, 10.2937)
+
+[node name="StaticBody3D2" parent="." instance=ExtResource("8_mhcqa")]
+transform = Transform3D(3.3623333, 0, 0, 0, 2.8600068, 0, 0, 0, 1, -2.64232, 1.8327422, -40.035774)
 
 [node name="Bot" parent="." node_paths=PackedStringArray("pelota", "arco_enemigo") instance=ExtResource("5_spw24")]
 transform = Transform3D(0.0274157, 0, -0.999624, 0, 1, 0, 0.999624, 0, 0.0274157, 0, 1, -33)
 pelota = NodePath("../Pelota")
 arco_enemigo = NodePath("../StaticBody3D")
 
+[node name="Saha" parent="." instance=ExtResource("6_bxp70")]
+transform = Transform3D(-0.129852, 0, -29.9997, 0, 30, 0, 29.9997, 0, -0.129852, -1.2745, -10.6553, -14.3817)
+
 [node name="CollisionShape3D2" parent="." instance=ExtResource("3_c4cy6")]
-transform = Transform3D(-5.15726e-07, -1, 0, 11.7985, -4.37114e-08, 0, 0, 0, 46.6725, -4.86473, 3.98952, -14.3944)
+transform = Transform3D(-0.00661769, -1, 0, 54.1927, -0.000122114, 0, 0, 0, 66.7592, -23.5338, 10.3644, -13.5847)
 
 [node name="CollisionShape3D3" parent="." instance=ExtResource("3_c4cy6")]
-transform = Transform3D(-5.15726e-07, -1, 0, 11.7985, -4.37114e-08, 0, 0, 0, 46.6725, 4.5967, 3.98952, -14.3944)
+transform = Transform3D(-0.00661769, -1, 0, 54.1927, -0.000122114, 0, 0, 0, 66.7592, 21.1573, 10.3644, -13.5847)
 
 [node name="CollisionShape3D4" parent="." instance=ExtResource("3_c4cy6")]
-transform = Transform3D(2.39089e-14, 4.37114e-08, 10.0357, 12.5133, -4.37114e-08, 0, 5.46972e-07, 1, -4.38673e-07, -0.0515637, 3.68069, -38.2204)
+transform = Transform3D(2.28686e-05, 0.00345579, -66.7588, 54.1927, -0.000122114, 0, -0.00661765, -0.999994, -0.230706, -5.42545, 10.3644, 11.4636)
 
 [node name="CollisionShape3D5" parent="." instance=ExtResource("3_c4cy6")]
-transform = Transform3D(2.39089e-14, 4.37114e-08, 10.0357, 12.5133, -4.37114e-08, 0, 5.46972e-07, 1, -4.38673e-07, -0.0515637, 3.68069, 9.33037)
+transform = Transform3D(2.28686e-05, 0.00345579, -66.7588, 54.1927, -0.000122114, 0, -0.00661765, -0.999994, -0.230706, -5.42545, 10.3644, -40.4024)
 
-[node name="CollisionShape3D6" parent="." instance=ExtResource("3_c4cy6")]
-transform = Transform3D(8.51905, 0, 0, 0, 1, 0, 0, 0, 46.6725, -0.118333, 9.49682, -14.3944)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0278394, 0, -0.992341, 0, 6.04009, 0, 12.5594, 0, -0.00219965, 20.46, 5.32039, -14.4326)
+mesh = SubResource("QuadMesh_ewed5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 632.0
+offset_right = 672.0
+offset_bottom = 69.0
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_mhcqa")
+theme_override_font_sizes/font_size = 50
+text = "0"
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 713.0
+offset_right = 753.0
+offset_bottom = 69.0
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_mhcqa")
+theme_override_font_sizes/font_size = 50
+text = "0"
+
+[editable path="StaticBody3D"]
+[editable path="StaticBody3D3"]

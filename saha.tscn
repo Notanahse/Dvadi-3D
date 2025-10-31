@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://lg5ad3ua8fmf"]
+
+[ext_resource type="PackedScene" uid="uid://dexgcu6vmqq1a" path="res://source/Source/Saha.fbx" id="1_mt5hq"]
+
+[node name="Saha" instance=ExtResource("1_mt5hq")]
+
+[node name="Plane_001" parent="." index="32"]
+mesh = null

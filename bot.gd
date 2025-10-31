@@ -1,6 +1,6 @@
 extends CharacterBody3D
 @export var velocidad = 5.0
-@export var fuerza_pateo = 25.0
+@export var fuerza_pateo = 20.0
 @export var pelota: RigidBody3D
 @export var arco_enemigo: StaticBody3D
 
@@ -14,7 +14,7 @@ var preparando_pateo = false
 var timer_preparacion = 0.0
 
 @export var velocidad_giro = 15.0
-@export var distancia_para_patear = 1.5
+@export var distancia_para_patear = 1.1
 
 func _physics_process(delta):
 	if not pelota or not arco_enemigo:

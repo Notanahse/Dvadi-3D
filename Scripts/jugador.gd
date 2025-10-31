@@ -3,22 +3,20 @@ extends CharacterBody3D
 @export var h_sensibilidad = 0.005
 @export var v_sensibilidad = 0.01
 @export var velocidad = 5.0
-@export var velocidad_agachado = 2.5
 @export var salto_fuerza = 10.0
 @export var gravedad = 30.0
 @export var altura_normal = 0.6
-@export var altura_agachado = 0.3
 
-@export var fuerza_disparo = 20.0
-@export var fuerza_pateo = 20.0
+
+@export var fuerza_disparo = 15.0
+@export var fuerza_pateo = 15.0
 @export var pelota: RigidBody3D
 
 var velocidad_y = 0.0
-var agachado = false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	$Camera3D.position.y = altura_normal
+	
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -61,27 +59,20 @@ func _physics_process(delta):
 		else:
 			velocidad_y = 0.0
 
-	if Input.is_action_pressed("agacharse"):
-		if not agachado:
-			agachado = true
-			$Camera3D.position.y = altura_agachado
-	else:
-		if agachado:
-			agachado = false
-			$Camera3D.position.y = altura_normal
+
 
 	velocity.x = vel_horizontal.x
 	velocity.z = vel_horizontal.z
 	velocity.y = velocidad_y
 	move_and_slide()
 
-func esta_cerca_de_pelota(radio: float = 3.0) -> bool:
+func esta_cerca_de_pelota(radio: float = 1.5) -> bool:
 	if not pelota:
 		return false
 	return global_transform.origin.distance_to(pelota.global_transform.origin) <= radio
 
 func patear_pelota():
-	if not pelota or not esta_cerca_de_pelota(3.0):
+	if not pelota or not esta_cerca_de_pelota(1.8):
 		return
 
 	var dir = -$Camera3D.global_transform.basis.z.normalized()

@@ -6,7 +6,8 @@
 size = Vector3(0.0419922, 1, 0.0643311)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kv80f"]
-albedo_color = Color(2.40654e-08, 0.438369, 0.106777, 1)
+transparency = 1
+albedo_color = Color(0, 0.439216, 0.105882, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wabbx"]
 material = SubResource("StandardMaterial3D_kv80f")
@@ -21,7 +22,7 @@ transform = Transform3D(1.00252, 0, 0, 0, 1.00252, 0, 0, 0, 1.00252, -0.479004, 
 shape = SubResource("BoxShape3D_kv80f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-transform = Transform3D(0.0396515, 0, 0, 0, 1, 0, 0, 0, -0.0572957, 0, 0, 0)
+transform = Transform3D(0.0528893, 0, 0, 0, 1.31877, 0, 0, 0, -0.105634, -0.314214, -0.0538161, 0)
 mesh = SubResource("BoxMesh_wabbx")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
@@ -29,7 +30,7 @@ transform = Transform3D(1.00252, 0, 0, 0, 1.00252, 0, 0, 0, 1.00252, 1.406, 0, 0
 shape = SubResource("BoxShape3D_kv80f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D2"]
-transform = Transform3D(0.0396515, 0, 0, 0, 1, 0, 0, 0, -0.0572957, 0, 0, 0)
+transform = Transform3D(0.0528893, 0, 0, 0, 1.31877, 0, 0, 0, -0.105634, 0.313522, -0.0538161, 0)
 mesh = SubResource("BoxMesh_wabbx")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
@@ -37,7 +38,7 @@ transform = Transform3D(-4.38215e-08, -1.00252, 0, 1.00252, -4.38215e-08, 0, 0, 
 shape = SubResource("BoxShape3D_kv80f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D3"]
-transform = Transform3D(0.0403415, 4.26326e-14, 0, -2.44249e-15, 1.93109, 0, 0, 0, -0.0582928, 0, -0.158272, 0)
+transform = Transform3D(0.0532012, 8.52651e-14, 0, -4.21885e-15, 2.57579, 0, 0, 0, -0.107473, 0.107632, -0.158964, 0)
 mesh = SubResource("BoxMesh_wabbx")
 
 [node name="Area3D" type="Area3D" parent="."]

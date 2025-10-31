@@ -9,9 +9,13 @@ func _ready():
 func _on_body_entered(body):
 	if body is RigidBody3D and body.name == "Pelota":
 		goles += 1
+		print(goles)
 		reiniciar_pelota(body)
 
 func reiniciar_pelota(pelota: RigidBody3D):
 	pelota.global_transform.origin = Vector3(-2, 7, -15)
 	pelota.linear_velocity = Vector3.ZERO
 	pelota.angular_velocity = Vector3.ZERO
+func getGoles():
+	print("GOLES" + str(goles))
+	return goles
