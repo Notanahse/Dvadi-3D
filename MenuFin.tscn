@@ -1,0 +1,98 @@
+[gd_scene load_steps=7 format=3 uid="uid://j3ocp3yjea4y"]
+
+[ext_resource type="Script" uid="uid://mlfushul7lkv" path="res://menu_fin.gd" id="1_5hep2"]
+[ext_resource type="Texture2D" uid="uid://g0vbd4jxbnph" path="res://kp2wq85fv45a1.jpg" id="2_nkgfl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oskq8"]
+bg_color = Color(0.193076, 0.0870196, 0.00709007, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrcje"]
+bg_color = Color(0.435294, 0.25098, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dubrm"]
+bg_color = Color(0.192157, 0.0862745, 0.00784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03dwy"]
+bg_color = Color(0.435294, 0.25098, 0, 1)
+
+[node name="MenuFin" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5hep2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -16.0
+offset_right = 2.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_nkgfl")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.756863)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 502.0
+offset_top = 96.0
+offset_right = 1385.0
+offset_bottom = 233.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.787101, 0.480149, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "¡FIN DEL PARTIDO!"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -395.0
+offset_right = 243.0
+offset_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 60
+
+[node name="Jugar" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+theme_override_styles/hover = SubResource("StyleBoxFlat_oskq8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lrcje")
+text = "JUGAR"
+
+[node name="Atras" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+theme_override_styles/hover = SubResource("StyleBoxFlat_dubrm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_03dwy")
+text = "ATRÁS"
+
+[connection signal="pressed" from="VBoxContainer2/Jugar" to="." method="_on_jugar_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Atras" to="." method="_on_atras_pressed"]

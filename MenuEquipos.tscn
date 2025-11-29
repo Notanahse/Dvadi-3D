@@ -1,0 +1,186 @@
+[gd_scene load_steps=9 format=3 uid="uid://df48rece2ylc3"]
+
+[ext_resource type="Texture2D" uid="uid://cdt1cff7naua4" path="res://content.png" id="1_n2vy1"]
+[ext_resource type="Script" uid="uid://c5ajlc7e7jxnx" path="res://menu_equipos.gd" id="1_qvqs6"]
+[ext_resource type="Texture2D" uid="uid://cibxhesinfkec" path="res://Escudos/Boca.png" id="2_dlf8p"]
+[ext_resource type="Texture2D" uid="uid://bxf0fhrop1oc6" path="res://Escudos/Independiente.png" id="3_qvqs6"]
+[ext_resource type="Texture2D" uid="uid://um3kenp748wk" path="res://Escudos/SanLorenzo.png" id="4_5chk7"]
+[ext_resource type="Texture2D" uid="uid://ctqhqnsoklhay" path="res://Escudos/Racing.png" id="5_a35tf"]
+[ext_resource type="Texture2D" uid="uid://6mf15bw5nxx1" path="res://Escudos/Poli.png" id="6_rcecu"]
+[ext_resource type="Texture2D" uid="uid://dhoi0gs85e5u3" path="res://Escudos/River.png" id="7_ahjf0"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qvqs6")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -350.0
+offset_right = 275.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_n2vy1")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 4.0
+offset_right = -2.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.352941)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 33.0
+offset_top = 49.0
+offset_right = 909.0
+offset_bottom = 159.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.787101, 0.480149, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "SELECCION DE EQUIPO"
+
+[node name="River" type="Button" parent="."]
+layout_mode = 1
+offset_left = 71.0
+offset_top = 248.0
+offset_right = 294.0
+offset_bottom = 415.0
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="River"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 40.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("7_ahjf0")
+expand_mode = 1
+
+[node name="Boca" type="Button" parent="."]
+layout_mode = 0
+offset_left = 354.0
+offset_top = 248.0
+offset_right = 577.0
+offset_bottom = 415.0
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Boca"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 40.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("2_dlf8p")
+expand_mode = 1
+
+[node name="Independiente" type="Button" parent="."]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 474.0
+offset_right = 863.0
+offset_bottom = 641.0
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Independiente"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 40.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("3_qvqs6")
+expand_mode = 1
+
+[node name="Racing" type="Button" parent="."]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 476.0
+offset_right = 294.0
+offset_bottom = 643.0
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Racing"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 40.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("5_a35tf")
+expand_mode = 1
+
+[node name="SanLorenzo" type="Button" parent="."]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 250.0
+offset_right = 863.0
+offset_bottom = 417.0
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="SanLorenzo"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 40.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("4_5chk7")
+expand_mode = 1
+
+[node name="Poli" type="Button" parent="."]
+layout_mode = 0
+offset_left = 354.0
+offset_top = 475.0
+offset_right = 577.0
+offset_bottom = 642.0
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Poli"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 40.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("6_rcecu")
+expand_mode = 1
+
+[node name="EscudoPreview" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 40.0
+scale = Vector2(4.6, 4.6)
+expand_mode = 1
+
+[connection signal="pressed" from="River" to="." method="_on_river_pressed"]
+[connection signal="pressed" from="River" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Boca" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Independiente" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Racing" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="SanLorenzo" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="Poli" to="." method="_on_button_6_pressed"]

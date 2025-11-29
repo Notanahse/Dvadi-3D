@@ -1,8 +1,14 @@
 extends CharacterBody3D
-@export var velocidad = 5.0
-@export var fuerza_pateo = 20.0
+
+@export var velocidad_base = 6.0
+@export var fuerza_pateo_base = 20.0
+@export var velocidad_giro_base = 15.0
 @export var pelota: RigidBody3D
 @export var arco_enemigo: StaticBody3D
+
+var velocidad = 6.0
+var fuerza_pateo = 20.0
+var velocidad_giro = 15.0
 
 var velocidad_y = 0.0
 @export var gravedad = 30.0
@@ -13,8 +19,56 @@ var tiempo_ultimo_pateo = 0.0
 var preparando_pateo = false
 var timer_preparacion = 0.0
 
-@export var velocidad_giro = 15.0
 @export var distancia_para_patear = 1.1
+
+@onready var mesh = $MeshInstance3D
+
+func _ready():
+	if Global.skin_rival != null:
+		aplicar_skin(Global.skin_rival)
+	else:
+		print("No se cargó Global.skin_rival")
+
+	ajustar_dificultad()
+
+
+func aplicar_skin(textura):
+	if mesh == null:
+		print("No se encontró MeshInstance3D en el bot")
+		return
+
+	var material = mesh.get_surface_override_material(0)
+
+	if material == null:
+		material = StandardMaterial3D.new()
+		mesh.set_surface_override_material(0, material)
+
+	material.albedo_texture = textura
+
+
+
+func ajustar_dificultad():
+	match Global.ronda_actual:
+		"octavos":
+			velocidad = velocidad_base
+			fuerza_pateo = fuerza_pateo_base
+			velocidad_giro = velocidad_giro_base
+		"cuartos":
+			velocidad = velocidad_base * 1.2
+			fuerza_pateo = fuerza_pateo_base * 2.0
+			velocidad_giro = velocidad_giro_base * 1.1
+		"semis":
+			velocidad = velocidad_base * 1.6
+			fuerza_pateo = fuerza_pateo_base * 2.6
+			velocidad_giro = velocidad_giro_base * 1.3
+		"final":
+			velocidad = velocidad_base * 1.8
+			fuerza_pateo = fuerza_pateo_base * 3
+			velocidad_giro = velocidad_giro_base * 1.4
+
+	print("Bot ajustado: Ronda %s | Vel: %.2f | Fuerza: %.2f | Giro: %.2f" %
+		[Global.ronda_actual, velocidad, fuerza_pateo, velocidad_giro])
+
 
 func _physics_process(delta):
 	if not pelota or not arco_enemigo:
@@ -56,6 +110,7 @@ func _physics_process(delta):
 			patear_pelota()
 			tiempo_ultimo_pateo = 0.0
 			preparando_pateo = false
+
 
 func patear_pelota():
 	if not pelota or not arco_enemigo:

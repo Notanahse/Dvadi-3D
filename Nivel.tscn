@@ -4,23 +4,83 @@
 [ext_resource type="PackedScene" uid="uid://c0fodfhg4ub6p" path="res://Suelo.tscn" id="3_c4cy6"]
 [ext_resource type="PackedScene" uid="uid://3kakuo1t52tf" path="res://Pelota.tscn" id="4_0b6j0"]
 [ext_resource type="PackedScene" uid="uid://c23g7bcggsxts" path="res://Arco.tscn" id="4_spw24"]
-[ext_resource type="PackedScene" uid="uid://bd5kyqscq67ue" path="res://Bot.tscn" id="5_spw24"]
 [ext_resource type="PackedScene" uid="uid://dexgcu6vmqq1a" path="res://source/Source/Saha.fbx" id="6_bxp70"]
 [ext_resource type="Texture2D" uid="uid://bgfkeq38pep4o" path="res://ffffff.jpg" id="7_2027d"]
 [ext_resource type="PackedScene" uid="uid://bboxamrs10kjv" path="res://Arco2.tscn" id="8_mhcqa"]
+[ext_resource type="PackedScene" uid="uid://rpdem4g01y1n" path="res://Jugador2.tscn" id="9_ewed5"]
 
 [sub_resource type="GDScript" id="GDScript_spw24"]
 script/source = "extends Node3D
-@onready var areaA= $StaticBody3D/Area3D
-@onready var areaB= $StaticBody3D2/Area3D
-@onready var label1=$CanvasLayer/Label
-@onready var label2=$CanvasLayer/Label2
+
+@onready var areaA = $StaticBody3D/Area3D
+@onready var areaB = $StaticBody3D2/Area3D
+@onready var label1 = $CanvasLayer/Label
+@onready var label2 = $CanvasLayer/Label2
+@onready var label_tiempo = $CanvasLayer/LabelTiempo 
+@onready var jugador = $Jugador            
+@onready var jugador2 = $Jugador2                      
+@onready var pelota = $Pelota   
+var tiempo_transcurrido = 0.0
+var duracion_partido = 60.0  
+var en_gol_de_oro = false
+var juego_terminado = false
+
+func _ready():
+	label_tiempo.text = \"00:00\"
+
 
 func _physics_process(delta):
+	if juego_terminado:
+		return
+
+
 	var golesA = areaA.getGoles()
 	var golesB = areaB.getGoles()
 	label1.text = str(golesA)
 	label2.text = str(golesB)
+
+	
+	if not en_gol_de_oro:
+		tiempo_transcurrido += delta
+		if tiempo_transcurrido >= duracion_partido:
+			tiempo_transcurrido = duracion_partido
+			verificar_resultado_final()
+	else:
+		
+		if golesA != golesB:
+			mostrar_resultado(golesA, golesB)
+
+	
+	actualizar_label_tiempo()
+
+func actualizar_label_tiempo():
+	var minutos = int(tiempo_transcurrido / 60)
+	var segundos = int(tiempo_transcurrido) % 60
+	label_tiempo.text = str(minutos).pad_zeros(2) + \":\" + str(segundos).pad_zeros(2)
+
+func verificar_resultado_final():
+	var golesA = areaA.getGoles()
+	var golesB = areaB.getGoles()
+
+	if golesA == golesB:
+		en_gol_de_oro = true
+		label_tiempo.text = \"gol de oro\"
+	else:
+		mostrar_resultado(golesA, golesB)
+
+func mostrar_resultado(golesA, golesB):
+	juego_terminado = true
+	if golesA > golesB:
+		label_tiempo.text = \"terminado\"
+		get_tree().change_scene_to_file(\"res://MenuFin.tscn\")
+	elif golesB > golesA:
+		label_tiempo.text = \"terminado\"
+	
+		get_tree().change_scene_to_file(\"res://MenuFin.tscn\")
+
+func reset_jugadores():
+	jugador.global_transform.origin = Vector3(-1, 0, 0)
+	jugador2.global_transform.origin = Vector3(-1, 0, -30)
 "
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0b6j0"]
@@ -29,35 +89,74 @@ sky_horizon_color = Color(1, 0.470588, 0.588235, 1)
 ground_horizon_color = Color(0.738634, 0.684557, 0.60375, 1)
 energy_multiplier = 0.5
 
-[sub_resource type="Sky" id="Sky_spw24"]
+[sub_resource type="Sky" id="Sky_mhcqa"]
 sky_material = SubResource("ProceduralSkyMaterial_0b6j0")
 
 [sub_resource type="Environment" id="Environment_bxp70"]
 background_mode = 2
-sky = SubResource("Sky_spw24")
+sky = SubResource("Sky_mhcqa")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhcqa"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewed5"]
 albedo_texture = ExtResource("7_2027d")
 
 [sub_resource type="QuadMesh" id="QuadMesh_ewed5"]
-material = SubResource("StandardMaterial3D_mhcqa")
+material = SubResource("StandardMaterial3D_ewed5")
 
 [sub_resource type="FontVariation" id="FontVariation_mhcqa"]
 
 [node name="Nivel" type="Node3D"]
 script = SubResource("GDScript_spw24")
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -408.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 672)
+render_target_update_mode = 4
+
+[node name="Jugador" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("pelota") instance=ExtResource("1_8g3sk")]
+transform = Transform3D(0.992813, 0, 0, 0, 0.992813, 0, 0, 0, 0.992813, 0, 0.981398, 0)
+pelota = NodePath("../../../Pelota")
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -519.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1920, 521)
+render_target_update_mode = 4
+
+[node name="Jugador2" parent="SubViewportContainer2/SubViewport" node_paths=PackedStringArray("pelota") instance=ExtResource("9_ewed5")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, -29)
+pelota = NodePath("../../../Pelota")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bxp70")
 
-[node name="Jugador" parent="." node_paths=PackedStringArray("pelota") instance=ExtResource("1_8g3sk")]
-transform = Transform3D(0.992813, 0, 0, 0, 0.992813, 0, 0, 0, 0.992813, 0, 0.981398, 0)
-pelota = NodePath("../Pelota")
-
 [node name="Pelota" parent="." instance=ExtResource("4_0b6j0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.02974, -15.3189)
+mass = 2.0
+gravity_scale = 0.7
 contact_monitor = true
 max_contacts_reported = 5
 
@@ -74,12 +173,7 @@ equipo = "Casa"
 transform = Transform3D(3.41708, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.8579, 1.17637, 10.2937)
 
 [node name="StaticBody3D2" parent="." instance=ExtResource("8_mhcqa")]
-transform = Transform3D(3.3623333, 0, 0, 0, 2.8600068, 0, 0, 0, 1, -2.64232, 1.8327422, -40.035774)
-
-[node name="Bot" parent="." node_paths=PackedStringArray("pelota", "arco_enemigo") instance=ExtResource("5_spw24")]
-transform = Transform3D(0.0274157, 0, -0.999624, 0, 1, 0, 0.999624, 0, 0.0274157, 0, 1, -33)
-pelota = NodePath("../Pelota")
-arco_enemigo = NodePath("../StaticBody3D")
+transform = Transform3D(3.36233, 0, 0, 0, 2.86001, 0, 0, 0, 1, -2.64232, 1.83274, -40.0358)
 
 [node name="Saha" parent="." instance=ExtResource("6_bxp70")]
 transform = Transform3D(-0.129852, 0, -29.9997, 0, 30, 0, 29.9997, 0, -0.129852, -1.2745, -10.6553, -14.3817)
@@ -103,22 +197,34 @@ mesh = SubResource("QuadMesh_ewed5")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 632.0
-offset_right = 672.0
-offset_bottom = 69.0
+offset_left = 88.0
+offset_top = -7.0
+offset_right = 134.0
+offset_bottom = 103.0
 size_flags_horizontal = 4
 theme_override_fonts/font = SubResource("FontVariation_mhcqa")
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 80
 text = "0"
+metadata/_edit_use_anchors_ = true
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
-offset_left = 713.0
-offset_right = 753.0
-offset_bottom = 69.0
+offset_left = 221.0
+offset_top = -6.0
+offset_right = 267.0
+offset_bottom = 104.0
 size_flags_horizontal = 4
 theme_override_fonts/font = SubResource("FontVariation_mhcqa")
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 80
 text = "0"
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelTiempo" type="Label" parent="CanvasLayer"]
+offset_left = 141.0
+offset_top = 114.0
+offset_right = 249.0
+offset_bottom = 156.0
+theme_override_font_sizes/font_size = 30
+metadata/_edit_use_anchors_ = true
 
 [editable path="StaticBody3D"]
 [editable path="StaticBody3D3"]

@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://wnkm7l7nda07"]
+
+[ext_resource type="Script" uid="uid://dx7u8opb4nmqf" path="res://ganaste.gd" id="1_a48hg"]
+[ext_resource type="Texture2D" uid="uid://bivf8b1q043h2" path="res://29df7badc1132afc0777d76255338c848a765fd8.jpg" id="1_c7f35"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ma8vo"]
+bg_color = Color(0.193076, 0.0870196, 0.00709007, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atc60"]
+bg_color = Color(0.435294, 0.25098, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htvhe"]
+bg_color = Color(0.192157, 0.0862745, 0.00784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ul7rf"]
+bg_color = Color(0.435294, 0.25098, 0, 1)
+
+[node name="Ganaste" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a48hg")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 6.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_c7f35")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = -118.0
+offset_right = 391.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.756863)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 497.0
+offset_top = 105.0
+offset_right = 1564.0
+offset_bottom = 242.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.787101, 0.480149, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "¡DALE CAMPEÓN!"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -395.0
+offset_right = 243.0
+offset_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 60
+
+[node name="Jugar" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+theme_override_styles/hover = SubResource("StyleBoxFlat_ma8vo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_atc60")
+text = "JUGAR"
+
+[node name="Atras" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+theme_override_styles/hover = SubResource("StyleBoxFlat_htvhe")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ul7rf")
+text = "ATRÁS"
+
+[connection signal="pressed" from="VBoxContainer2/Jugar" to="." method="_on_jugar_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Atras" to="." method="_on_atras_pressed"]
