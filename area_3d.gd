@@ -17,5 +17,4 @@ func reiniciar_pelota(pelota: RigidBody3D):
 	pelota.linear_velocity = Vector3.ZERO
 	pelota.angular_velocity = Vector3.ZERO
 func getGoles():
-	print("GOLES" + str(goles))
 	return goles

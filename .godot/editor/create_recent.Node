@@ -1,0 +1,14 @@
+CollisionShape3D
+Area3D
+RigidBody3D
+Button
+VBoxContainer
+TextureRect
+Control
+Camera3D
+CanvasLayer
+SubViewport
+SubViewportContainer
+GridContainer
+HBoxContainer
+Node

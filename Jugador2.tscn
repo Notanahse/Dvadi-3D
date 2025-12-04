@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://rpdem4g01y1n"]
+[gd_scene load_steps=5 format=3 uid="uid://rpdem4g01y1n"]
 
 [ext_resource type="Script" uid="uid://bccyeef4k2oks" path="res://jugador_2.gd" id="1_axfxq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y3i3a"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_axfxq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_axfxq"]
+radius = 0.75
 
 [node name="Jugador2" type="CharacterBody3D"]
 script = ExtResource("1_axfxq")
@@ -22,3 +25,11 @@ fov = 91.5641
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.88267e-08, -0.123455, -1.06036)
+
+[node name="PushArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PushArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18922508, 0)
+shape = SubResource("SphereShape3D_axfxq")
+
+[connection signal="body_entered" from="PushArea" to="." method="_on_push_area_body_entered"]

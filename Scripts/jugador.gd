@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var h_sensibilidad = 0.005
 @export var v_sensibilidad = 0.01
 @export var velocidad = 6.0
+@export var velocidad_correr = 9.0    
 @export var salto_fuerza = 10.0
 @export var gravedad = 30.0
 
@@ -65,8 +66,12 @@ func _physics_process(delta):
 	if direccion.length() > 0:
 		direccion = direccion.normalized()
 
+	var vel_actual = velocidad
+	if Input.is_action_pressed("run"):
+		vel_actual = velocidad_correr
+
 	var direccion_global = (global_transform.basis * direccion).normalized() if direccion.length() > 0 else Vector3.ZERO
-	var vel_horizontal = direccion_global * velocidad
+	var vel_horizontal = direccion_global * vel_actual
 
 	if not is_on_floor():
 		velocidad_y -= gravedad * delta
@@ -82,20 +87,17 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func esta_cerca_de_pelota(radio: float = 1.5) -> bool:
+func esta_cerca_de_pelota(radio: float = 0.1) -> bool:
 	if not pelota: return false
 	return global_transform.origin.distance_to(pelota.global_transform.origin) <= radio
 
 
 func patear_pelota():
-	if not pelota or not esta_cerca_de_pelota(1.8):
+	if not pelota or not esta_cerca_de_pelota(1.0):
 		return
 
-	
 	var dir = -$Camera3D.global_transform.basis.z
 	dir = dir.normalized()
-
-
 	dir.y = clamp(dir.y, -0.5, 0.5)
 
 	var impulso = dir * fuerza_pateo
@@ -106,12 +108,12 @@ func patear_pelota():
 
 
 func disparar_pelota():
-	if not pelota or not esta_cerca_de_pelota(3.5):
+	if not pelota or not esta_cerca_de_pelota(1.5):
 		return
 
 	var dir = -$Camera3D.global_transform.basis.z
 	dir = dir.normalized()
-	dir.y = clamp(dir.y, -0.5, 0.5)  
+	dir.y = clamp(dir.y, -0.5, 0.5)
 
 	pelota.linear_velocity = dir * fuerza_disparo
 
@@ -119,3 +121,9 @@ func disparar_pelota():
 		pelota.angular_velocity = Vector3(0, 10, 0)
 	elif Input.is_action_pressed("disparo_curva_derecha"):
 		pelota.angular_velocity = Vector3(0, -10, 0)
+
+
+func _on_push_area_body_entered(body: Node3D) -> void:
+	if body is RigidBody3D:
+		var dir = (body.global_transform.origin - global_transform.origin).normalized()
+		body.apply_impulse(dir * 6)
