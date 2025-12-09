@@ -1,0 +1,174 @@
+[gd_scene load_steps=17 format=3 uid="uid://f14erhr2gs4b"]
+
+[ext_resource type="PackedScene" uid="uid://c0w15u3h3s1ip" path="res://jugador_teclado_2.tscn" id="1_bo560"]
+[ext_resource type="PackedScene" uid="uid://donhqamn363uq" path="res://JugadorTeclado.tscn" id="2_bo560"]
+[ext_resource type="Script" uid="uid://c0d5htvl1ahu3" path="res://camera_3d_2.gd" id="2_lon8j"]
+[ext_resource type="PackedScene" uid="uid://3kakuo1t52tf" path="res://Pelota.tscn" id="3_1840x"]
+[ext_resource type="Script" uid="uid://bb1s65a3lavog" path="res://camera_3d.gd" id="4_1840x"]
+[ext_resource type="PackedScene" uid="uid://c0fodfhg4ub6p" path="res://Suelo.tscn" id="4_kiwc6"]
+[ext_resource type="PackedScene" uid="uid://c23g7bcggsxts" path="res://Arco.tscn" id="5_bgxu4"]
+[ext_resource type="PackedScene" uid="uid://bboxamrs10kjv" path="res://Arco2.tscn" id="6_w145m"]
+[ext_resource type="PackedScene" uid="uid://dexgcu6vmqq1a" path="res://source/Source/Saha.fbx" id="7_2wcro"]
+[ext_resource type="Texture2D" uid="uid://bgfkeq38pep4o" path="res://ffffff.jpg" id="8_xsrk4"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vdbuj"]
+sky_top_color = Color(0.184314, 0.207843, 0.752941, 1)
+sky_horizon_color = Color(1, 0.470588, 0.588235, 1)
+ground_horizon_color = Color(0.738634, 0.684557, 0.60375, 1)
+energy_multiplier = 0.5
+
+[sub_resource type="Sky" id="Sky_mhcqa"]
+sky_material = SubResource("ProceduralSkyMaterial_vdbuj")
+
+[sub_resource type="Environment" id="Environment_ka48r"]
+background_mode = 2
+sky = SubResource("Sky_mhcqa")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewed5"]
+albedo_texture = ExtResource("8_xsrk4")
+
+[sub_resource type="QuadMesh" id="QuadMesh_4d7fy"]
+material = SubResource("StandardMaterial3D_ewed5")
+
+[sub_resource type="FontVariation" id="FontVariation_21ffv"]
+
+[node name="NivelTeclado" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -408.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 672)
+render_target_update_mode = 4
+
+[node name="JugadorTeclado2" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_bo560")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35629, 0)
+
+[node name="Camera3D2" type="Camera3D" parent="SubViewportContainer/SubViewport/JugadorTeclado2"]
+transform = Transform3D(1, 0, 0, 0, 0.956422, 0.291987, 0, -0.291987, 0.956422, -0.036562, 2.04551, 4.86465)
+current = true
+fov = 91.5641
+script = ExtResource("2_lon8j")
+
+[node name="RayCast3D" type="RayCast3D" parent="SubViewportContainer/SubViewport/JugadorTeclado2/Camera3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.88267e-08, -0.123455, -1.06036)
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -519.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1920, 521)
+render_target_update_mode = 4
+
+[node name="JugadorTeclado" parent="SubViewportContainer2/SubViewport" instance=ExtResource("2_bo560")]
+transform = Transform3D(-0.999989, 0, 0.00459017, 0, 1, 0, -0.00459017, 0, -0.999989, 0, 1.19464, -26.5564)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport/JugadorTeclado" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.956422, 0.291987, 0, -0.291987, 0.956422, -0.036562, 2.04551, 4.86465)
+current = true
+fov = 91.5641
+script = ExtResource("4_1840x")
+target = NodePath("../../../../Pelota")
+
+[node name="RayCast3D" type="RayCast3D" parent="SubViewportContainer2/SubViewport/JugadorTeclado/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.88267e-08, -0.123455, -1.06036)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ka48r")
+
+[node name="Pelota" parent="." instance=ExtResource("3_1840x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.02974, -15.3189)
+mass = 2.0
+gravity_scale = 0.7
+contact_monitor = true
+max_contacts_reported = 5
+
+[node name="CollisionShape3D" parent="." instance=ExtResource("4_kiwc6")]
+transform = Transform3D(54.1927, 0, 0, 0, 1, 0, 0, 0, 66.7592, -0.146134, -0.0987148, -11.0932)
+
+[node name="StaticBody3D" parent="." instance=ExtResource("5_bgxu4")]
+transform = Transform3D(3.41708, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.8579, 1.17637, 10.2937)
+
+[node name="Area3D" parent="StaticBody3D" index="3"]
+equipo = "Casa"
+
+[node name="StaticBody3D3" parent="." instance=ExtResource("5_bgxu4")]
+transform = Transform3D(3.41708, 0, 0, 0, 4.25, 0, 0, 0, 1, -2.8579, 1.17637, 10.2937)
+
+[node name="StaticBody3D2" parent="." instance=ExtResource("6_w145m")]
+transform = Transform3D(3.36233, 0, 0, 0, 2.86001, 0, 0, 0, 1, -2.64232, 1.83274, -40.0358)
+
+[node name="Saha" parent="." instance=ExtResource("7_2wcro")]
+transform = Transform3D(-0.129852, 0, -29.9997, 0, 30, 0, 29.9997, 0, -0.129852, -1.2745, -10.6553, -14.3817)
+
+[node name="CollisionShape3D2" parent="." instance=ExtResource("4_kiwc6")]
+transform = Transform3D(-0.00661769, -1, 0, 54.1927, -0.000122114, 0, 0, 0, 66.7592, -23.5338, 10.3644, -13.5847)
+
+[node name="CollisionShape3D3" parent="." instance=ExtResource("4_kiwc6")]
+transform = Transform3D(-0.00661769, -1, 0, 54.1927, -0.000122114, 0, 0, 0, 66.7592, 21.1573, 10.3644, -13.5847)
+
+[node name="CollisionShape3D4" parent="." instance=ExtResource("4_kiwc6")]
+transform = Transform3D(2.28686e-05, 0.00345579, -66.7588, 54.1927, -0.000122114, 0, -0.00661765, -0.999994, -0.230706, -5.42545, 10.3644, 11.4636)
+
+[node name="CollisionShape3D5" parent="." instance=ExtResource("4_kiwc6")]
+transform = Transform3D(2.28686e-05, 0.00345579, -66.7588, 54.1927, -0.000122114, 0, -0.00661765, -0.999994, -0.230706, -5.42545, 10.3644, -40.4024)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0278394, 0, -0.992341, 0, 6.04009, 0, 12.5594, 0, -0.00219965, 20.46, 5.32039, -14.4326)
+mesh = SubResource("QuadMesh_4d7fy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 88.0
+offset_top = -7.0
+offset_right = 134.0
+offset_bottom = 103.0
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_21ffv")
+theme_override_font_sizes/font_size = 80
+text = "0"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 221.0
+offset_top = -6.0
+offset_right = 267.0
+offset_bottom = 104.0
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_21ffv")
+theme_override_font_sizes/font_size = 80
+text = "0"
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelTiempo" type="Label" parent="CanvasLayer"]
+offset_left = 141.0
+offset_top = 114.0
+offset_right = 249.0
+offset_bottom = 156.0
+theme_override_font_sizes/font_size = 30
+metadata/_edit_use_anchors_ = true
+
+[editable path="StaticBody3D"]
+[editable path="StaticBody3D3"]

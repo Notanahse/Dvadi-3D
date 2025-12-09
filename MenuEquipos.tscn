@@ -177,8 +177,8 @@ offset_bottom = 40.0
 scale = Vector2(4.6, 4.6)
 expand_mode = 1
 
-[connection signal="pressed" from="River" to="." method="_on_river_pressed"]
 [connection signal="pressed" from="River" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="River" to="." method="_on_river_pressed"]
 [connection signal="pressed" from="Boca" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Independiente" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Racing" to="." method="_on_button_4_pressed"]

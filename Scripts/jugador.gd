@@ -29,6 +29,8 @@ func cambiar_skin_por_equipo(equipo: String):
 		"River": textura_path = "res://Escudos/River.png"
 		"Poli": textura_path = "res://Escudos/Poli.png"
 		"SanLorenzo": textura_path = "res://Escudos/SanLorenzo.png"
+		"Velez":textura_path = "res://Escudos/Velez.png"
+		"Huracan":textura_path = "res://Escudos/Huracan.png"
 	var material = StandardMaterial3D.new()
 	material.albedo_texture = load(textura_path)
 	material.roughness = 1.0
@@ -117,10 +119,6 @@ func disparar_pelota():
 
 	pelota.linear_velocity = dir * fuerza_disparo
 
-	if Input.is_action_pressed("disparo_curva_izquierda"):
-		pelota.angular_velocity = Vector3(0, 10, 0)
-	elif Input.is_action_pressed("disparo_curva_derecha"):
-		pelota.angular_velocity = Vector3(0, -10, 0)
 
 
 func _on_push_area_body_entered(body: Node3D) -> void:

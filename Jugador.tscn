@@ -1,17 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cai8my4dwvcjf"]
+[gd_scene load_steps=5 format=3 uid="uid://cai8my4dwvcjf"]
 
 [ext_resource type="Script" uid="uid://umac66vytmov" path="res://Scripts/jugador.gd" id="1_pfvk3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43k7d"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pfvk3"]
-load_path = "res://.godot/imported/293126143-3139498376362517-1493819909140866097-n-1657674666845.jpg-abfd2e7694dd43d83485605f410b2760.s3tc.ctex"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ucnt4"]
-albedo_texture = SubResource("CompressedTexture2D_pfvk3")
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pfvk3"]
-material = SubResource("StandardMaterial3D_ucnt4")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_43k7d"]
 radius = 0.75
@@ -39,7 +32,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.8826
 [node name="PushArea" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PushArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18922508, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.189225, 0)
 shape = SubResource("SphereShape3D_43k7d")
 
 [connection signal="body_entered" from="PushArea" to="." method="_on_push_area_body_entered"]

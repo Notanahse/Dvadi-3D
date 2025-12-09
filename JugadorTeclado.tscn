@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://donhqamn363uq"]
+
+[ext_resource type="Script" uid="uid://corxee073rtke" path="res://jugador_teclado.gd" id="1_0ll3l"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43k7d"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pfvk3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_43k7d"]
+radius = 0.75
+
+[node name="JugadorTeclado" type="CharacterBody3D"]
+script = ExtResource("1_0ll3l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_43k7d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.974785, 0, -0.223148, 0, 1, 0, 0.223148, 0, 0.974785, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_pfvk3")
+skeleton = NodePath("../..")
+
+[node name="PushArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PushArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.189225, 0)
+shape = SubResource("SphereShape3D_43k7d")
+
+[connection signal="body_entered" from="PushArea" to="." method="_on_push_area_body_entered"]

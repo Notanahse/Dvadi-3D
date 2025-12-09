@@ -7,7 +7,7 @@ extends CharacterBody3D
 @export var salto_fuerza = 10.0
 @export var gravedad = 30.0
 
-@export var fuerza_pateo = 20
+@export var fuerza_pateo = 10.0
 @export var pelota: RigidBody3D
 
 var joy_id := -1
@@ -15,21 +15,40 @@ var velocidad_y := 0.0
 
 const BOTON_PATEAR_PS := 3
 
+@onready var mesh = $MeshInstance3D
 @onready var cam = $Camera3D
 
 func _ready():
 	var pads = Input.get_connected_joypads()
+	cambiar_skin_por_equipo(Global.rival_seleccionado)
 	if pads.size() > 0:
 		joy_id = pads[0]
 	else:
 		push_warning("NO HAY JOYSTICK CONECTADO")
+
+func cambiar_skin_por_equipo(equipo: String):
+	var textura_path = ""
+	match equipo:
+		"Boca": textura_path = "res://Escudos/Boca.png"
+		"Independiente": textura_path = "res://Escudos/Independiente.png"
+		"Racing": textura_path = "res://Escudos/Racing.png"
+		"River": textura_path = "res://Escudos/River.png"
+		"Poli": textura_path = "res://Escudos/Poli.png"
+		"SanLorenzo": textura_path = "res://Escudos/SanLorenzo.png"
+		"Velez":textura_path = "res://Escudos/Velez.png"
+		"Huracan":textura_path = "res://Escudos/Huracan.png"
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = load(textura_path)
+	material.roughness = 1.0
+	material.metallic = 0.0
+	mesh.material_override = material
 
 
 func _physics_process(delta):
 	if joy_id == -1:
 		return
 
-	# MOVIMIENTO
+	
 	var x = Input.get_joy_axis(joy_id, JOY_AXIS_LEFT_X)
 	var z = Input.get_joy_axis(joy_id, JOY_AXIS_LEFT_Y)
 
@@ -72,7 +91,7 @@ func _physics_process(delta):
 	velocity = Vector3(vel_horizontal.x, velocidad_y, vel_horizontal.z)
 	move_and_slide()
 
-	# PATEAR
+
 	if Input.is_joy_button_pressed(joy_id, BOTON_PATEAR_PS) and esta_cerca_de_pelota():
 		patear_pelota()
 
@@ -104,7 +123,7 @@ func patear_pelota():
 	var impulso = dir * fuerza_pateo
 	pelota.apply_impulse(impulso)
 
-	print("PATEADO!")
+	print("PATEA")
 
 
 func _on_push_area_body_entered(body: Node3D) -> void:

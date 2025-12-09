@@ -1,0 +1,225 @@
+[gd_scene load_steps=13 format=3 uid="uid://bceg3guy8i21p"]
+
+[ext_resource type="Script" uid="uid://dueek13nk8lfe" path="res://Escenas/menu_multiplayer.gd" id="1_6e68f"]
+[ext_resource type="Texture2D" uid="uid://cdt1cff7naua4" path="res://content.png" id="1_h24dg"]
+[ext_resource type="Texture2D" uid="uid://dhoi0gs85e5u3" path="res://Escudos/River.png" id="3_4p6q6"]
+[ext_resource type="Texture2D" uid="uid://cewn1yv2lex3p" path="res://Rojo.png" id="3_u2c35"]
+[ext_resource type="Texture2D" uid="uid://cibxhesinfkec" path="res://Escudos/Boca.png" id="4_ivi6c"]
+[ext_resource type="Texture2D" uid="uid://dtgeikkrlo4ij" path="res://Azul.png" id="4_r8y33"]
+[ext_resource type="Texture2D" uid="uid://um3kenp748wk" path="res://Escudos/SanLorenzo.png" id="5_xvuhk"]
+[ext_resource type="Texture2D" uid="uid://bxf0fhrop1oc6" path="res://Escudos/Independiente.png" id="6_g0st7"]
+[ext_resource type="Texture2D" uid="uid://ctqhqnsoklhay" path="res://Escudos/Racing.png" id="7_0fmrs"]
+[ext_resource type="Texture2D" uid="uid://6mf15bw5nxx1" path="res://Escudos/Poli.png" id="8_0mxcn"]
+[ext_resource type="Texture2D" uid="uid://bxcc46vjh5tff" path="res://Escudos/Velez.png" id="9_mikkm"]
+[ext_resource type="Texture2D" uid="uid://dhuu7gk7f8ck1" path="res://Escudos/Huracan.png" id="10_yy0ct"]
+
+[node name="MenuMultiplayer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6e68f")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -6.0
+offset_right = 25.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_h24dg")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -53.0
+offset_top = -18.0
+offset_right = 36.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.352941)
+
+[node name="EscudoJugador" type="TextureRect" parent="TextureRect"]
+layout_mode = 0
+offset_left = 473.0
+offset_top = 307.0
+offset_right = 510.0
+offset_bottom = 342.0
+scale = Vector2(4.6, 4.6)
+expand_mode = 1
+
+[node name="EscudoRival" type="TextureRect" parent="TextureRect"]
+layout_mode = 0
+offset_left = 1364.0
+offset_top = 307.0
+offset_right = 1401.0
+offset_bottom = 342.0
+scale = Vector2(4.6, 4.6)
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 49.0
+offset_right = 1383.0
+offset_bottom = 165.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.787101, 0.480149, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "SELECCION DE EQUIPO"
+
+[node name="River" type="Button" parent="." groups=["seleccion_Equipo"]]
+layout_mode = 0
+offset_left = 562.0
+offset_top = 553.0
+offset_right = 699.0
+offset_bottom = 690.0
+
+[node name="TextureRect" type="TextureRect" parent="River"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(4.2, 4.2)
+texture = ExtResource("3_4p6q6")
+expand_mode = 1
+
+[node name="Boca" type="Button" parent="." groups=["seleccion_Equipo"]]
+layout_mode = 0
+offset_left = 775.0
+offset_top = 553.0
+offset_right = 916.0
+offset_bottom = 690.0
+
+[node name="TextureRect" type="TextureRect" parent="Boca"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("4_ivi6c")
+expand_mode = 1
+
+[node name="SanLorenzo" type="Button" parent="." groups=["seleccion_Equipo"]]
+layout_mode = 0
+offset_left = 1001.0
+offset_top = 553.0
+offset_right = 1141.0
+offset_bottom = 686.0
+
+[node name="TextureRect" type="TextureRect" parent="SanLorenzo"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("5_xvuhk")
+expand_mode = 1
+
+[node name="Independiente" type="Button" parent="." groups=["seleccion_Equipo"]]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 551.0
+offset_right = 1364.0
+offset_bottom = 687.0
+
+[node name="TextureRect" type="TextureRect" parent="Independiente"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("6_g0st7")
+expand_mode = 1
+
+[node name="Racing" type="Button" parent="." groups=["seleccion_Equipo"]]
+layout_mode = 0
+offset_left = 563.0
+offset_top = 758.0
+offset_right = 702.0
+offset_bottom = 889.0
+
+[node name="TextureRect" type="TextureRect" parent="Racing"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("7_0fmrs")
+expand_mode = 1
+
+[node name="Poli" type="Button" parent="." groups=["seleccion_Equipo"]]
+layout_mode = 0
+offset_left = 775.0
+offset_top = 754.0
+offset_right = 915.0
+offset_bottom = 891.0
+
+[node name="TextureRect" type="TextureRect" parent="Poli"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("8_0mxcn")
+expand_mode = 1
+
+[node name="Velez" type="Button" parent="." groups=["seleccion_Equipo"]]
+layout_mode = 0
+offset_left = 1010.0
+offset_top = 751.0
+offset_right = 1148.0
+offset_bottom = 886.0
+
+[node name="TextureRect" type="TextureRect" parent="Velez"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("9_mikkm")
+expand_mode = 1
+
+[node name="Huracan" type="Button" parent="." groups=["seleccion_Equipo"]]
+layout_mode = 0
+offset_left = 1224.0
+offset_top = 751.0
+offset_right = 1366.0
+offset_bottom = 889.0
+
+[node name="TextureRect" type="TextureRect" parent="Huracan"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("10_yy0ct")
+expand_mode = 1
+
+[node name="Cursor1" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_u2c35")
+
+[node name="Cursor2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_r8y33")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 799.0
+offset_top = 942.0
+offset_right = 1114.0
+offset_bottom = 1004.0
+text = "JUGAR"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

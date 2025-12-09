@@ -52,6 +52,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.756863)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 502.0
 offset_top = 96.0
 offset_right = 1385.0

@@ -1,5 +1,8 @@
-res://Menu.tscn
-res://jugador_2.gd
-res://Jugador2.tscn
-res://Scripts/jugador.gd
+res://Escenas/menu_multiplayer.tscn
+res://Escenas/menu_multiplayer.gd
 res://Nivel.tscn
+res://Scripts/Global.gd
+res://Scripts/jugador.gd
+res://jugador_2.gd
+res://Menu.tscn
+res://menu.gd
