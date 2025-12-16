@@ -23,6 +23,7 @@ var velocidad_cursor := 900.0
 var deadzone := 0.25
 
 func _ready():
+	$River.grab_focus()
 	var pads = Input.get_connected_joypads()
 	if pads.size() > 0:
 		joy2 = pads[0]

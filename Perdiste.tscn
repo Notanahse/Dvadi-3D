@@ -3,17 +3,17 @@
 [ext_resource type="Script" uid="uid://clymhqfs5a8bu" path="res://perdiste.gd" id="1_4blne"]
 [ext_resource type="Texture2D" uid="uid://du5b3akt5d6cg" path="res://d86c41ea-ceed-4b4d-9d56-0222e25d097c_16-9-aspect-ratio_default_0.jpg" id="2_4blne"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcjqm"]
+bg_color = Color(0.435294, 0.25098, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4blne"]
 bg_color = Color(0.193076, 0.0870196, 0.00709007, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcjqm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_071ji"]
 bg_color = Color(0.435294, 0.25098, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uidom"]
 bg_color = Color(0.192157, 0.0862745, 0.00784314, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_071ji"]
-bg_color = Color(0.435294, 0.25098, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -84,15 +84,15 @@ theme_override_constants/separation = 60
 [node name="Jugar" type="Button" parent="VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 70
-theme_override_styles/hover = SubResource("StyleBoxFlat_4blne")
 theme_override_styles/normal = SubResource("StyleBoxFlat_qcjqm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4blne")
 text = "JUGAR"
 
 [node name="Atras" type="Button" parent="VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 70
-theme_override_styles/hover = SubResource("StyleBoxFlat_uidom")
 theme_override_styles/normal = SubResource("StyleBoxFlat_071ji")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uidom")
 text = "ATRÁS"
 
 [connection signal="pressed" from="VBoxContainer2/Jugar" to="." method="_on_jugar_pressed"]

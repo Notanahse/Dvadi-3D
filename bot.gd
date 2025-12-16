@@ -49,22 +49,18 @@ func aplicar_skin(textura):
 
 func ajustar_dificultad():
 	match Global.ronda_actual:
-		"octavos":
+		"cuartos":
 			velocidad = velocidad_base
 			fuerza_pateo = fuerza_pateo_base
 			velocidad_giro = velocidad_giro_base
-		"cuartos":
+		"semis":
 			velocidad = velocidad_base * 1.2
 			fuerza_pateo = fuerza_pateo_base * 2.0
 			velocidad_giro = velocidad_giro_base * 1.1
-		"semis":
+		"final":
 			velocidad = velocidad_base * 1.6
 			fuerza_pateo = fuerza_pateo_base * 2.6
 			velocidad_giro = velocidad_giro_base * 1.3
-		"final":
-			velocidad = velocidad_base * 1.8
-			fuerza_pateo = fuerza_pateo_base * 3
-			velocidad_giro = velocidad_giro_base * 1.4
 
 	print("Bot ajustado: Ronda %s | Vel: %.2f | Fuerza: %.2f | Giro: %.2f" %
 		[Global.ronda_actual, velocidad, fuerza_pateo, velocidad_giro])

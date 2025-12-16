@@ -49,7 +49,7 @@ func _input(event):
 	if event.is_action_released("patear"):
 		golpe_pateo_activo = false
 
-	if event.is_action_pressed("disparoTeclado2"):
+	if event.is_action_pressed("disparo"):
 		disparar_pelota()
 
 
@@ -82,7 +82,9 @@ func _physics_process(delta):
 	velocity.z = vel_horizontal.z
 	velocity.y = velocidad_y
 	move_and_slide()
-
+	var target : Vector3 = pelota.transform.origin
+	target.y = transform.origin.y
+	look_at(target)
 
 func esta_cerca_de_pelota(radio: float = 0.1) -> bool:
 	if not pelota: return false

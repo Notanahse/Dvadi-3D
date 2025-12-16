@@ -82,7 +82,9 @@ func _physics_process(delta):
 	velocity.z = vel_horizontal.z
 	velocity.y = velocidad_y
 	move_and_slide()
-
+	var target : Vector3 = pelota.transform.origin
+	target.y = transform.origin.y
+	look_at(target)
 
 func esta_cerca_de_pelota(radio: float = 0.1) -> bool:
 	if not pelota: return false
@@ -108,7 +110,7 @@ func disparar_pelota():
 	if not pelota or not esta_cerca_de_pelota(1.5):
 		return
 
-	var dir = -$Camera3D.global_transform.basis.z
+	var dir = -$Camera3D2.global_transform.basis.z
 	dir = dir.normalized()
 	dir.y = clamp(dir.y, -0.5, 0.5)
 

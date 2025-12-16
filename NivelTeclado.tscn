@@ -51,8 +51,9 @@ handle_input_locally = false
 size = Vector2i(1920, 672)
 render_target_update_mode = 4
 
-[node name="JugadorTeclado2" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_bo560")]
+[node name="JugadorTeclado2" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("pelota") instance=ExtResource("1_bo560")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35629, 0)
+pelota = NodePath("../../../Pelota")
 
 [node name="Camera3D2" type="Camera3D" parent="SubViewportContainer/SubViewport/JugadorTeclado2"]
 transform = Transform3D(1, 0, 0, 0, 0.956422, 0.291987, 0, -0.291987, 0.956422, -0.036562, 2.04551, 4.86465)
@@ -81,12 +82,16 @@ handle_input_locally = false
 size = Vector2i(1920, 521)
 render_target_update_mode = 4
 
-[node name="JugadorTeclado" parent="SubViewportContainer2/SubViewport" instance=ExtResource("2_bo560")]
+[node name="JugadorTeclado" parent="SubViewportContainer2/SubViewport" node_paths=PackedStringArray("pelota") instance=ExtResource("2_bo560")]
 transform = Transform3D(-0.999989, 0, 0.00459017, 0, 1, 0, -0.00459017, 0, -0.999989, 0, 1.19464, -26.5564)
+pelota = NodePath("../../../Pelota")
+
+[node name="CameraPov" type="Camera3D" parent="SubViewportContainer2/SubViewport/JugadorTeclado"]
+transform = Transform3D(1.0000006, 0, 4.656613e-10, 0, 1, 0, -4.656613e-10, 0, 1.0000006, -0.0006817579, 0.80939066, -0.14852715)
+current = true
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport/JugadorTeclado" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 0.956422, 0.291987, 0, -0.291987, 0.956422, -0.036562, 2.04551, 4.86465)
-current = true
 fov = 91.5641
 script = ExtResource("4_1840x")
 target = NodePath("../../../../Pelota")

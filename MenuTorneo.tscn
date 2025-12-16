@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://bscfqk2e7pf8j" path="res://menu_torneo.gd" id="1_oy7e2"]
 [ext_resource type="Texture2D" uid="uid://cdt1cff7naua4" path="res://content.png" id="1_qsriv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsriv"]
-bg_color = Color(0.192157, 0.0862745, 0.00784314, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oy7e2"]
 bg_color = Color(0.435294, 0.25098, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsriv"]
+bg_color = Color(0.192157, 0.0862745, 0.00784314, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -76,8 +76,8 @@ grow_vertical = 0
 [node name="Jugar" type="Button" parent="VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 80
-theme_override_styles/hover = SubResource("StyleBoxFlat_qsriv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_oy7e2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qsriv")
 text = "JUGAR"
 
 [node name="EscudoJugador" type="TextureRect" parent="."]

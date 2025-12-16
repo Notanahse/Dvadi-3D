@@ -15,14 +15,13 @@ var duracion_partido = 60.0
 var en_gol_de_oro = false
 var juego_terminado = false
 
-
 var golesA_anteriores = 0
 var golesB_anteriores = 0
 
 func _ready():
 	label_tiempo.text = "00:00"
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	# Asegúrate de que Global.rival_seleccionado esté seteado antes de empezar (lo hace llave_torneo o menu_torneo)
 
 func _physics_process(delta):
 	if juego_terminado:
@@ -32,20 +31,15 @@ func _physics_process(delta):
 	var golesB = areaB.getGoles()
 
 	if golesA > golesA_anteriores:
-		
 		reset_jugadores()
 		golesA_anteriores = golesA
 
-
 	if golesB > golesB_anteriores:
-		
 		reset_jugadores()
 		golesB_anteriores = golesB
 
-
 	label1.text = str(golesA)
 	label2.text = str(golesB)
-
 
 	if not en_gol_de_oro:
 		tiempo_transcurrido += delta
@@ -58,12 +52,10 @@ func _physics_process(delta):
 
 	actualizar_label_tiempo()
 
-
 func actualizar_label_tiempo():
 	var minutos = int(tiempo_transcurrido / 60)
 	var segundos = int(tiempo_transcurrido) % 60
 	label_tiempo.text = str(minutos).pad_zeros(2) + ":" + str(segundos).pad_zeros(2)
-
 
 func verificar_resultado_final():
 	var golesA = areaA.getGoles()
@@ -75,35 +67,46 @@ func verificar_resultado_final():
 	else:
 		mostrar_resultado(golesA, golesB)
 
-
 func mostrar_resultado(golesA, golesB):
 	juego_terminado = true
 	label_tiempo.text = "terminado"
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-
+	# IMPORTANTE: en tu código original considerabas que si golesB > golesA el jugador ganaba.
+	# Mantengo esa lógica pero la generalizo usando Global.ronda_actual.
+	# Si en tu caso el jugador pertenece a areaA/areaB distinto, ajusta las comparaciones.
 	if golesA > golesB:
+		# Ganó A -> asumo que A es el rival (ajusta si es al revés)
+		var ganador = Global.rival_seleccionado
+		# Registrar ganador en la ronda actual
+		Global.agregar_resultado_real(Global.ronda_actual, ganador)
+		# No generamos la siguiente ronda desde aquí si perdiste, pero podrías querer hacerlo.
 		get_tree().change_scene_to_file("res://Perdiste.tscn")
+
 	elif golesB > golesA:
-		pasar_de_ronda()
-		get_tree().change_scene_to_file("res://MenuTorneo.tscn")
+		# Ganó B -> asumimos que B es el jugador (como en tu código original)
+		var ganador_jugador = Global.equipo_seleccionado
+		Global.agregar_resultado_real(Global.ronda_actual, ganador_jugador)
 
+		# Generar la siguiente ronda y simular aquellos partidos que no involucren al jugador
+		if Global.ronda_actual == "cuartos":
+			Global.generar_siguiente_ronda("cuartos", "semis")
+			# Simular semis (la función evita simular el cruce del jugador)
+			Global.simular_ronda("semis")
+			# Preparar la generación de la final (se generará si hay ganadores en semis)
+			Global.generar_siguiente_ronda("semis", "final")
 
-func pasar_de_ronda():
-	match Global.ronda_actual:
-		"octavos":
-			Global.ronda_actual = "cuartos"
-		"cuartos":
-			Global.ronda_actual = "semis"
-		"semis":
-			Global.ronda_actual = "final"
-		"final":
-			Global.ronda_actual = "campeon"
-			get_tree().change_scene_to_file("res://Ganaste.tscn")
-			return
+		elif Global.ronda_actual == "semis":
+			Global.generar_siguiente_ronda("semis", "final")
+			Global.simular_ronda("final")
 
-	Global.rival_seleccionado = ""
+		elif Global.ronda_actual == "final":
+			# Si era la final, el cruce final ya tiene el ganador seteado
+			# Podrías mostrar una pantalla de "Campeón"
+			pass
 
+		# Volver a la llave para mostrar el estado actualizado
+		get_tree().change_scene_to_file("res://llave_torneo.tscn")
 
 func reset_jugadores():
 	jugador.global_transform.origin = Vector3(-1, 0, 0)

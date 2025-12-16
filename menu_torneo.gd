@@ -1,75 +1,37 @@
-extends Control
+extends Node
+
+@onready var escudo_jugador = $EscudoJugador
+@onready var escudo_rival = $EscudoRival
+@onready var boton_jugar = $VBoxContainer2/Jugar
 
 func _ready():
+	# Si no existen cruces, los generamos UNA VEZ aquí
+	if Global.cruces["cuartos"].is_empty():
+		Global.generar_cruces()
+		# Simular los partidos de cuartos que no involucren al jugador
+		Global.simular_ronda("cuartos")
+		# No generamos semis/final aún: se generarán cuando el jugador juegue su cruce y se actualicen los ganadores.
 
-	if Global.ronda_actual == "":
-		Global.ronda_actual = "octavos"
+	mostrar_cruce_actual()
+	if boton_jugar:
+		boton_jugar.pressed.connect(_jugar_partido)
 
+func mostrar_cruce_actual():
+	var jugador = Global.equipo_seleccionado
 
-	actualizar_titulo()
+	# Buscar el cruce donde está el jugador en cuartos (si existe)
+	for cruce in Global.cruces["cuartos"]:
+		if cruce.get("equipo1", "") == jugador:
+			Global.rival_seleccionado = cruce.get("equipo2", "")
+		elif cruce.get("equipo2", "") == jugador:
+			Global.rival_seleccionado = cruce.get("equipo1", "")
 
+	Global.skin_rival = Global.escudos.get(Global.rival_seleccionado, null)
 
-	if Global.equipo_seleccionado == "":
-		print("no hay equipo seleccionado")
-		return
+	escudo_jugador.texture = Global.escudos.get(Global.equipo_seleccionado, null)
+	escudo_rival.texture = Global.escudos.get(Global.rival_seleccionado, null)
 
-
-	if Global.rival_seleccionado == "":
-		Global.rival_seleccionado = generar_rival()
-
-	mostrar_equipos()
-	asignar_skins()
-
-
-func actualizar_titulo():
-	match Global.ronda_actual:
-		"octavos":
-			$VBoxContainer/Titulo.text = "OCTAVOS DE FINAL"
-		"cuartos":
-			$VBoxContainer/Titulo.text = "CUARTOS DE FINAL"
-		"semis":
-			$VBoxContainer/Titulo.text = "SEMIFINAL"
-		"final":
-			$VBoxContainer/Titulo.text = "FINAL"
-		_:
-			$VBoxContainer/Titulo.text = "TORNEO"
-
-
-func generar_rival():
-	var equipos = ["River", "Boca", "Independiente", "Racing", "SanLorenzo", "Poli"]
-
-
-	equipos.erase(Global.equipo_seleccionado)
-
-	for e in Global.rivales_jugados:
-		if equipos.has(e):
-			equipos.erase(e)
-
-
-	if equipos.size() == 0:
-		return "Poli" 
-
-	var rival = equipos[randi() % equipos.size()]
-
-	Global.rivales_jugados.append(rival)
-
-	Global.skin_rival = load("res://Escudos/%s.png" % rival)
-
-	return rival
-
-
-func mostrar_equipos():
-	var escudo_j = load("res://Escudos/%s.png" % Global.equipo_seleccionado)
-	var escudo_r = load("res://Escudos/%s.png" % Global.rival_seleccionado)
-
-	$EscudoJugador.texture = escudo_j
-	$EscudoRival.texture = escudo_r
-
-
-func asignar_skins():
-	if Global.skin_jugador == null:
-		Global.skin_jugador = load("res://Escudos/%s.png" % Global.equipo_seleccionado)
-
-
-func _on_jugar_pressed():
+func _jugar_partido():
+	# Establecer ronda actual a cuartos si se va a jugar la primera fase
+	Global.ronda_actual = "cuartos"
 	get_tree().change_scene_to_file("res://NivelBot.tscn")
