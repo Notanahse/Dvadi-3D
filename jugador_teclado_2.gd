@@ -15,10 +15,14 @@ var velocidad_y = 0.0
 var golpe_pateo_activo = false  
 
 @onready var mesh = $MeshInstance3D
-
+@onready var camara_principal: Camera3D = $CameraPov2
+@onready var camara_alt: Camera3D = $Camera3D2
+var camara_actual := 0
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	cambiar_skin_por_equipo(Global.equipo_seleccionado)
+	camara_principal.current = true
+	camara_alt.current = false
 
 func cambiar_skin_por_equipo(equipo: String):
 	var textura_path = ""
@@ -39,6 +43,10 @@ func _input(event):
 	if event.device != 0 and not (event is InputEventMouseMotion):
 		return
 
+	if event.is_action_pressed("cambiarcamara"):
+		camara_actual = 1 - camara_actual
+		camara_principal.current = (camara_actual == 0)
+		camara_alt.current = (camara_actual == 1)
 
 
 	if event.is_action_pressed("patear"):
@@ -82,8 +90,11 @@ func _physics_process(delta):
 	velocity.z = vel_horizontal.z
 	velocity.y = velocidad_y
 	move_and_slide()
-
-
+	var target : Vector3 = pelota.transform.origin
+	target.y = transform.origin.y
+	look_at(target)
+func get_camara_activa() -> Camera3D:
+	return camara_principal if camara_principal.current else camara_alt
 func esta_cerca_de_pelota(radio: float = 0.1) -> bool:
 	if not pelota: return false
 	return global_transform.origin.distance_to(pelota.global_transform.origin) <= radio
@@ -108,7 +119,7 @@ func disparar_pelota():
 	if not pelota or not esta_cerca_de_pelota(1.5):
 		return
 
-	var dir = -$Camera3D.global_transform.basis.z
+	var dir = -$Camera3D2.global_transform.basis.z
 	dir = dir.normalized()
 	dir.y = clamp(dir.y, -0.5, 0.5)
 

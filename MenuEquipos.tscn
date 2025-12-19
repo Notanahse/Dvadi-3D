@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://df48rece2ylc3"]
+[gd_scene load_steps=11 format=3 uid="uid://df48rece2ylc3"]
 
 [ext_resource type="Texture2D" uid="uid://cdt1cff7naua4" path="res://content.png" id="1_n2vy1"]
 [ext_resource type="Script" uid="uid://c5ajlc7e7jxnx" path="res://menu_equipos.gd" id="1_qvqs6"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://ctqhqnsoklhay" path="res://Escudos/Racing.png" id="5_a35tf"]
 [ext_resource type="Texture2D" uid="uid://6mf15bw5nxx1" path="res://Escudos/Poli.png" id="6_rcecu"]
 [ext_resource type="Texture2D" uid="uid://dhoi0gs85e5u3" path="res://Escudos/River.png" id="7_ahjf0"]
+[ext_resource type="Texture2D" uid="uid://bxcc46vjh5tff" path="res://Escudos/Velez.png" id="9_a35tf"]
+[ext_resource type="Texture2D" uid="uid://dhuu7gk7f8ck1" path="res://Escudos/Huracan.png" id="10_rcecu"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -177,10 +179,46 @@ offset_bottom = 40.0
 scale = Vector2(4.6, 4.6)
 expand_mode = 1
 
+[node name="Velez" type="Button" parent="."]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 248.0
+offset_right = 294.0
+offset_bottom = 415.0
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Velez"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 9.0
+offset_right = 887.0
+offset_bottom = 44.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("9_a35tf")
+expand_mode = 1
+
+[node name="Huracan" type="Button" parent="."]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 248.0
+offset_right = 294.0
+offset_bottom = 415.0
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Huracan"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 230.0
+offset_right = 887.0
+offset_bottom = 265.0
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("10_rcecu")
+expand_mode = 1
+
 [connection signal="pressed" from="River" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="River" to="." method="_on_river_pressed"]
 [connection signal="pressed" from="Boca" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Independiente" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Racing" to="." method="_on_button_4_pressed"]
 [connection signal="pressed" from="SanLorenzo" to="." method="_on_button_5_pressed"]
 [connection signal="pressed" from="Poli" to="." method="_on_button_6_pressed"]
+[connection signal="pressed" from="Velez" to="." method="_on_velez_pressed"]

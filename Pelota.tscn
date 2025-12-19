@@ -21,10 +21,13 @@ roughness = 0.63
 material = SubResource("StandardMaterial3D_scuwd")
 
 [node name="Pelota" type="RigidBody3D"]
+physics_interpolation_mode = 1
 mass = 1.997
 physics_material_override = SubResource("PhysicsMaterial_scuwd")
 gravity_scale = 0.8
 max_contacts_reported = 1
+linear_damp = 0.5
+angular_damp = 0.5
 script = ExtResource("1_scuwd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

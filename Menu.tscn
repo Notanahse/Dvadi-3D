@@ -1,19 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlm7tadhk5g45"]
+[gd_scene load_steps=8 format=3 uid="uid://dlm7tadhk5g45"]
 
 [ext_resource type="Script" uid="uid://caln0cy6uqyo7" path="res://menu.gd" id="1_5yleq"]
 [ext_resource type="Texture2D" uid="uid://0oe30qkk3it2" path="res://ChatGPT Image 5 nov 2025, 20_40_00.png" id="1_uubjt"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uubjt"]
-bg_color = Color(0.435294, 0.25098, 0, 1)
+[ext_resource type="PackedScene" uid="uid://buorft0sedca8" path="res://Escenas/global.tscn" id="2_ylpcl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cx167"]
 bg_color = Color(0.193076, 0.0870196, 0.00709007, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ylpcl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uubjt"]
 bg_color = Color(0.435294, 0.25098, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4eug"]
 bg_color = Color(0.192157, 0.0862745, 0.00784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ylpcl"]
+bg_color = Color(0.435294, 0.25098, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -23,6 +24,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5yleq")
+
+[node name="Global" parent="." instance=ExtResource("2_ylpcl")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -63,22 +66,22 @@ theme_override_constants/separation = 20
 [node name="Jugar" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_uubjt")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cx167")
+theme_override_styles/normal = SubResource("StyleBoxFlat_uubjt")
 text = "SOLITARIO"
 
 [node name="Multijugador" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_uubjt")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cx167")
+theme_override_styles/normal = SubResource("StyleBoxFlat_uubjt")
 text = "MULTIJUGADOR"
 
 [node name="Salir" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_ylpcl")
 theme_override_styles/hover = SubResource("StyleBoxFlat_n4eug")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ylpcl")
 text = "SALIR"
 
 [connection signal="pressed" from="VBoxContainer/Jugar" to="." method="_on_jugar_pressed"]

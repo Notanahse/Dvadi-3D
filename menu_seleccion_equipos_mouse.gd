@@ -18,45 +18,39 @@ const Equipos := {
 	"Huracan": "res://Escudos/Huracan.png"
 }
 
-var joy2 := -1
-var velocidad_cursor := 900.0
-var deadzone := 0.25
+enum Turno { JUGADOR_1, JUGADOR_2 }
+var turno_actual := Turno.JUGADOR_1
+
 
 func _ready():
-	$River.grab_focus()
-	var pads = Input.get_connected_joypads()
-	if pads.size() > 0:
-		joy2 = pads[0]
-
 	buttons = get_tree().get_nodes_in_group("seleccion_Equipo")
 
 	cursor1.visible = true
-	cursor2.visible = true
+	cursor2.visible = false   
 
 
 func _process(delta):
-	cursor1.position = get_viewport().get_mouse_position()
+	var mouse_pos := get_viewport().get_mouse_position()
 
-	if joy2 != -1:
-		var x := Input.get_joy_axis(joy2, JOY_AXIS_LEFT_X)
-		var y := Input.get_joy_axis(joy2, JOY_AXIS_LEFT_Y)
+	if turno_actual == Turno.JUGADOR_1:
+		cursor1.position = mouse_pos
 
-		if abs(x) < deadzone: x = 0
-		if abs(y) < deadzone: y = 0
+		if Input.is_action_just_pressed("click"):
+			if seleccionar_cursor(cursor1, 1):
+				turno_actual = Turno.JUGADOR_2
+				cursor1.visible = false
+				cursor2.visible = true
 
-		cursor2.position += Vector2(x, y) * velocidad_cursor * delta
+	elif turno_actual == Turno.JUGADOR_2:
+		cursor2.position = mouse_pos
 
-		cursor2.position.x = clamp(cursor2.position.x, 0, get_viewport_rect().size.x)
-		cursor2.position.y = clamp(cursor2.position.y, 0, get_viewport_rect().size.y)
-
-		if Input.is_joy_button_pressed(joy2, JOY_BUTTON_A):
-			seleccionar_cursor(cursor2, 2)
-
-	if Input.is_action_just_pressed("click"):
-		seleccionar_cursor(cursor1, 1)
+		if Input.is_action_just_pressed("click"):
+			if seleccionar_cursor(cursor2, 2):
+				print("Ambos equipos seleccionados")
 
 
-func seleccionar_cursor(cursor: Control, jugador: int):
+
+func seleccionar_cursor(cursor: Control, jugador: int) -> bool:
 	for b in buttons:
 		if cursor.get_global_rect().intersects(b.get_global_rect()):
 			if Equipos.has(b.name):
@@ -68,7 +62,10 @@ func seleccionar_cursor(cursor: Control, jugador: int):
 					EscudoJ2.texture = load(Equipos[b.name])
 					Global.rival_seleccionado = b.name
 					Global.skin_rival = load(Equipos[b.name])
-			return
+
+
+
+	return false
 
 func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://Nivel.tscn")
+	get_tree().change_scene_to_file("res://NivelTeclado.tscn")

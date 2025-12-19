@@ -1,26 +1,21 @@
 extends Node3D
 
-@onready var areaA = $StaticBody3D/Area3D      
-@onready var areaB = $StaticBody3D2/Area3D   
+@onready var areaA = $StaticBody3D/Area3D
+@onready var areaB = $StaticBody3D2/Area3D
 @onready var label1 = $CanvasLayer/Label
 @onready var label2 = $CanvasLayer/Label2
 @onready var label_tiempo = $CanvasLayer/LabelTiempo 
-
-@onready var jugador = $Jugador            
-@onready var bot = $Bot                      
-@onready var pelota = $Pelota               
-
+@onready var jugador = $SubViewportContainer/SubViewport/JugadorTeclado2           
+@onready var jugador2 = $SubViewportContainer2/SubViewport/JugadorTeclado                      
+@onready var pelota = $Pelota   
 var tiempo_transcurrido = 0.0
 var duracion_partido = 60.0  
 var en_gol_de_oro = false
 var juego_terminado = false
-
 var golesA_anteriores = 0
 var golesB_anteriores = 0
-
 func _ready():
 	label_tiempo.text = "00:00"
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _physics_process(delta):
@@ -31,15 +26,20 @@ func _physics_process(delta):
 	var golesB = areaB.getGoles()
 
 	if golesA > golesA_anteriores:
+		
 		reset_jugadores()
 		golesA_anteriores = golesA
 
+
 	if golesB > golesB_anteriores:
+		
 		reset_jugadores()
 		golesB_anteriores = golesB
 
+
 	label1.text = str(golesA)
 	label2.text = str(golesB)
+
 
 	if not en_gol_de_oro:
 		tiempo_transcurrido += delta
@@ -52,10 +52,12 @@ func _physics_process(delta):
 
 	actualizar_label_tiempo()
 
+
 func actualizar_label_tiempo():
 	var minutos = int(tiempo_transcurrido / 60)
 	var segundos = int(tiempo_transcurrido) % 60
 	label_tiempo.text = str(minutos).pad_zeros(2) + ":" + str(segundos).pad_zeros(2)
+
 
 func verificar_resultado_final():
 	var golesA = areaA.getGoles()
@@ -67,6 +69,7 @@ func verificar_resultado_final():
 	else:
 		mostrar_resultado(golesA, golesB)
 
+
 func mostrar_resultado(golesA, golesB):
 	juego_terminado = true
 	label_tiempo.text = "terminado"
@@ -74,37 +77,10 @@ func mostrar_resultado(golesA, golesB):
 
 
 	if golesA > golesB:
-
-		var ganador = Global.rival_seleccionado
-	
-		Global.agregar_resultado_real(Global.ronda_actual, ganador)
-
-		get_tree().change_scene_to_file("res://Perdiste.tscn")
-
+		get_tree().change_scene_to_file("res://MenuFin.tscn")
 	elif golesB > golesA:
-
-		var ganador_jugador = Global.equipo_seleccionado
-		Global.agregar_resultado_real(Global.ronda_actual, ganador_jugador)
-
-
-		if Global.ronda_actual == "cuartos":
-			Global.generar_siguiente_ronda("cuartos", "semis")
-
-			Global.simular_ronda("semis")
-
-			Global.generar_siguiente_ronda("semis", "final")
-			get_tree().change_scene_to_file("res://llave_torneo.tscn")
-		elif Global.ronda_actual == "semis":
-			Global.generar_siguiente_ronda("semis", "final")
-			Global.simular_ronda("final")
-			get_tree().change_scene_to_file("res://llave_torneo.tscn")
-		elif Global.ronda_actual == "final":
-
-			get_tree().change_scene_to_file("res://Ganaste.tscn")
-
-
-
+		get_tree().change_scene_to_file("res://MenuFin.tscn")
 
 func reset_jugadores():
 	jugador.global_transform.origin = Vector3(-1, 0, 0)
-	bot.global_transform.origin = Vector3(-1, 0, -30)
+	jugador2.global_transform.origin = Vector3(-1, 0, -30)
